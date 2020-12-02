@@ -91,7 +91,7 @@ static char rcsid[] = "$dcmtk: " OFFIS_CONSOLE_APPLICATION " v"
 
 #define APPLICATIONTITLE "DCMQRSCP"
 
-const char *opt_configFileName = DEFAULT_CONFIGURATION_DIR "dcmqrscp.cfg";
+const char *opt_configFileName = "./conf/dcmqrscp.cfg";
 OFBool      opt_checkFindIdentifier = OFFalse;
 OFBool      opt_checkMoveIdentifier = OFFalse;
 OFCmdUnsignedInt opt_port = 0;
