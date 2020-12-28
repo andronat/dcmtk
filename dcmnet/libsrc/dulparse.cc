@@ -459,6 +459,7 @@ parseUserInfo(DUL_USERINFO * userInfo,
               unsigned char typeRQorAC,
               unsigned long availData /* bytes left for in this PDU */)
 {
+    dprintf(2, "TASO1 %p %d\n", buf, userInfo->length);
     unsigned short userLength;
     unsigned long length;
     OFCondition cond = EC_Normal;
@@ -494,15 +495,23 @@ parseUserInfo(DUL_USERINFO * userInfo,
             << STD_NAMESPACE hex << STD_NAMESPACE setfill('0') << STD_NAMESPACE setw(2) << (unsigned int)userInfo->type
             << STD_NAMESPACE dec << "), Length: " << (unsigned long)userInfo->length);
     // parse through different types of user items as long as we have data
+    int lalakos = 0;
     while (userLength > 0) {
+        lalakos++;
         DCMNET_TRACE("Parsing remaining " << (long)userLength << " bytes of User Information" << OFendl
                 << "Next item type: "
                 << STD_NAMESPACE hex << STD_NAMESPACE setfill('0') << STD_NAMESPACE setw(2) << (unsigned int)*buf);
+        dprintf(2, "TASO! %p\n", buf);
+        if (lalakos > 1) {
+            dprintf(2, "TASO! BOOM!! %p\n", buf);
+            *(int*)0 = 0;
+        }
         switch (*buf) {
         case DUL_TYPEMAXLENGTH:
             cond = parseMaxPDU(&userInfo->maxLength, buf, &length, userLength);
             if (cond.bad())
                 return cond;
+            dprintf(2, "TASO!! %p %lu\n", buf, length);
             buf += length;
             if (!OFStandard::safeSubtract(userLength, OFstatic_cast(short unsigned int, length), userLength))
               return makeLengthError("maximum length sub-item", userLength, length);

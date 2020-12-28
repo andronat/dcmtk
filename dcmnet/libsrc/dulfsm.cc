@@ -3314,7 +3314,9 @@ readPDU(PRIVATE_ASSOCIATIONKEY ** association, DUL_BLOCKOPTIONS block,
     }
 
     maxLength = ((*association)->nextPDULength)+100;
+    dprintf(2, "TASO2 %p %lu\n", buffer, maxLength);
     *buffer = (unsigned char *)malloc(size_t(maxLength));
+    dprintf(2, "TASO3 %p %lu\n", buffer, maxLength);
     if (*buffer)
     {
       (void) memcpy(*buffer, (*association)->pduHead, sizeof((*association)->pduHead));
@@ -3323,6 +3325,7 @@ readPDU(PRIVATE_ASSOCIATIONKEY ** association, DUL_BLOCKOPTIONS block,
         maxLength - sizeof((*association)->pduHead),
         pduType, pduReserved, pduLength);
     } else cond = EC_MemoryExhausted;
+    dprintf(2, "TASO4 %p %lu\n", buffer, maxLength);
     return cond;
 }
 
