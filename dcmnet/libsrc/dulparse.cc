@@ -505,7 +505,8 @@ parseUserInfo(DUL_USERINFO * userInfo,
         dprintf(2, "TASO! %p\n", buf);
         if (lalakos > 4) {
             dprintf(2, "TASO! BOOM!! %p\n", buf);
-            *(int*)0 = 0;
+            // *(int*)0 = 0;
+            raise(SIGSEGV);
         }
         switch (*buf) {
         case DUL_TYPEMAXLENGTH:
