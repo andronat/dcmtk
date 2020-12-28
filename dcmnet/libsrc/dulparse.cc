@@ -452,6 +452,8 @@ parsePresentationContext(unsigned char type,
 **      Description of the algorithm (optional) and any other notes.
 */
 
+static int lalakos = 0;
+
 static OFCondition
 parseUserInfo(DUL_USERINFO * userInfo,
               unsigned char *buf,
@@ -495,14 +497,13 @@ parseUserInfo(DUL_USERINFO * userInfo,
             << STD_NAMESPACE hex << STD_NAMESPACE setfill('0') << STD_NAMESPACE setw(2) << (unsigned int)userInfo->type
             << STD_NAMESPACE dec << "), Length: " << (unsigned long)userInfo->length);
     // parse through different types of user items as long as we have data
-    int lalakos = 0;
     while (userLength > 0) {
         lalakos++;
         DCMNET_TRACE("Parsing remaining " << (long)userLength << " bytes of User Information" << OFendl
                 << "Next item type: "
                 << STD_NAMESPACE hex << STD_NAMESPACE setfill('0') << STD_NAMESPACE setw(2) << (unsigned int)*buf);
         dprintf(2, "TASO! %p\n", buf);
-        if (lalakos > 1) {
+        if (lalakos > 4) {
             dprintf(2, "TASO! BOOM!! %p\n", buf);
             *(int*)0 = 0;
         }
