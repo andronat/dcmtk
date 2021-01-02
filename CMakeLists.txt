@@ -4,6 +4,9 @@ cmake_minimum_required(VERSION 2.8.5 FATAL_ERROR)
 SET(CMAKE_C_COMPILER afl-clang-fast)
 SET(CMAKE_CXX_COMPILER afl-clang-fast++)
 
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address,undefined")
+set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address,undefined")
+
 # As of 2018-12-26 DCMTK has been validated to build with CMake 3.13.2 policies.
 set(DCMTK_MAX_CMAKE_POLICY_VERSION 3.13.2)
 
